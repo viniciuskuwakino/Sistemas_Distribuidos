@@ -1,0 +1,32 @@
+import java.math.BigInteger;
+import java.security.MessageDigest;
+
+public class TCPUser {
+  String user;
+  String password;
+
+  private String getSHA512(){
+    String toReturn = null;
+    try {
+        MessageDigest digest = MessageDigest.getInstance("SHA-512");
+        digest.reset();
+        digest.update(this.password.getBytes("utf8"));
+        toReturn = String.format("%0128x", new BigInteger(1, digest.digest()));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return toReturn;
+  }
+
+  public Boolean comparePassword(String password){
+    String passwordHash = getSHA512();
+    return passwordHash.equals(password);
+  }
+
+
+  public TCPUser(String user, String password) {
+    this.user = user;
+    this.password = password;
+  }
+}

@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/home/msechineli/Dropbox/pastaAcadêmica/7/SD/atividade_1/teste/.metadata/.plugins/org.eclipse.jdt.core
+1865797976.index
+646308851.index
+613517670.index
