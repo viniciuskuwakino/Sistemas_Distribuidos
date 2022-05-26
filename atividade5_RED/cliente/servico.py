@@ -167,16 +167,17 @@ def listarAlunosDaDisciplina():
 
         print("QUANTIDADE: " + str(qtd.quantidade))
 
-        for i in range(qtd.quantidade):
+        if qtd.quantidade > 0:
+            for i in range(qtd.quantidade):
 
-            # Recebe aluno do servidor e faz unmarshalling
-            aluno = faculdade_pb2.Aluno()
-            aluno.ParseFromString(client_socket.recv(1024))
+                # Recebe aluno do servidor e faz unmarshalling
+                aluno = faculdade_pb2.Aluno()
+                aluno.ParseFromString(client_socket.recv(1024))
 
-            # Imprime os dados do aluno
-            print("RA: " + str(aluno.ra))
-            print("NOME: " + aluno.nome)
-            print("PERIODO: " + str(aluno.periodo))
+                # Imprime os dados do aluno
+                print("RA: " + str(aluno.ra))
+                print("NOME: " + aluno.nome)
+                print("PERIODO: " + str(aluno.periodo))
 
 
 # Funcao de mostrar o boletim de um aluno
@@ -218,22 +219,23 @@ def boletimAluno():
         print("ANO: " + str(matricula.ano))
         print("-------------------------")
 
-        for i in range(qtd.quantidade):
-            # Recebe a matricula do servidor e faz unmarshalling
-            matriculaResposta = faculdade_pb2.Matricula()
-            matriculaResposta.ParseFromString(client_socket.recv(1024))
+        if qtd.quantidade > 0:
+            for i in range(qtd.quantidade):
+                # Recebe a matricula do servidor e faz unmarshalling
+                matriculaResposta = faculdade_pb2.Matricula()
+                matriculaResposta.ParseFromString(client_socket.recv(1024))
 
-            # Recebe a disciplina do servidor e faz unmarshalling
-            disciplina = faculdade_pb2.Disciplina()
-            disciplina.ParseFromString(client_socket.recv(1024))
+                # Recebe a disciplina do servidor e faz unmarshalling
+                disciplina = faculdade_pb2.Disciplina()
+                disciplina.ParseFromString(client_socket.recv(1024))
 
-            # Imprime a disciplina, nota e faltas
-            print("CODIGO_DISCIPLINA:" + str(disciplina.codigo))
-            print("DISCIPLINA:" + disciplina.nome)
-            print("PROFESSOR:" + disciplina.professor)
-            print("NOTA: %.1f" % matriculaResposta.nota)
-            print("FALTAS:" + str(matriculaResposta.faltas))
-            print("-------------------------")
+                # Imprime a disciplina, nota e faltas
+                print("CODIGO_DISCIPLINA:" + str(disciplina.codigo))
+                print("DISCIPLINA:" + disciplina.nome)
+                print("PROFESSOR:" + disciplina.professor)
+                print("NOTA: %.1f" % matriculaResposta.nota)
+                print("FALTAS:" + str(matriculaResposta.faltas))
+                print("-------------------------")
 
 
 if __name__ == '__main__':

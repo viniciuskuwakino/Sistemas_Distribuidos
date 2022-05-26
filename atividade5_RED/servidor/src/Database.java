@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class Database {
-    private String url = "jdbc:sqlite:/home/vinicius/Documentos/bcc/semestre_6/SD/atividade5_red/atv/javacode/database/database_com_dados-contrib-Daniel-Farina.db";
+    private String url = "jdbc:sqlite:/home/vinicius/Documentos/bcc/semestre_6/SD/Sistemas_Distribuidos/atividade5_RED/servidor/database/database_com_dados-contrib-Daniel-Farina.db";
     public Connection conn = DriverManager.getConnection(this.url);
     public Database() throws SQLException {
     }
@@ -201,6 +201,13 @@ public class Database {
             conn_verify.close();
 
             if (num != 0) {
+
+                // Faz um marshalling da resposta "Success"
+                Faculdade.Resposta res = Faculdade.Resposta.newBuilder().setMensagem("Success").build();
+
+                // Envia para o cliente um array de bytes da resposta
+                outClient.write(res.toByteArray());
+
                 try {
                     PreparedStatement pstmt = this.conn.prepareStatement(sql);
                     pstmt.setString(1, cod_disciplina);
@@ -226,6 +233,12 @@ public class Database {
                 }
 
             } else {
+                // Faz um marshalling da resposta "Fail"
+                Faculdade.Resposta res = Faculdade.Resposta.newBuilder().setMensagem("Fail").build();
+
+                // Envia para o cliente um array de bytes da resposta
+                outClient.write(res.toByteArray());
+
                 System.out.println("Erro: Nao ha alunos!");
             }
 
@@ -270,6 +283,12 @@ public class Database {
 
             if (num != 0) {
 
+                // Faz um marshalling da resposta "Success"
+                Faculdade.Resposta res = Faculdade.Resposta.newBuilder().setMensagem("Success").build();
+
+                // Envia para o cliente um array de bytes da resposta
+                outClient.write(res.toByteArray());
+
                 try {
                     PreparedStatement pstmt = this.conn.prepareStatement(sql);
                     pstmt.setInt(1, ra);
@@ -291,6 +310,8 @@ public class Database {
                                 .setSemestre(result.getInt("semestre"))
                                 .build();
 
+                        outClient.write(matricula.toByteArray());
+
                         Faculdade.Disciplina disciplina = Faculdade.Disciplina.newBuilder()
                                 .setCodigo(result.getString("codigo"))
                                 .setNome(result.getString("nome"))
@@ -298,7 +319,6 @@ public class Database {
                                 .setProfessor(result.getString("professor"))
                                 .build();
 
-                        outClient.write(matricula.toByteArray());
                         outClient.write(disciplina.toByteArray());
                     }
 
@@ -307,6 +327,12 @@ public class Database {
                 }
 
             } else {
+                // Faz um marshalling da resposta "Fail"
+                Faculdade.Resposta res = Faculdade.Resposta.newBuilder().setMensagem("Fail").build();
+
+                // Envia para o cliente um array de bytes da resposta
+                outClient.write(res.toByteArray());
+
                 System.out.println("Erro: Matricula nao existe!");
             }
 

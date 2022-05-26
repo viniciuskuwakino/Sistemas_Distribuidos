@@ -223,12 +223,6 @@ class ClientThread extends Thread {
         // Parser do buffer
         Faculdade.Matricula matricula = Faculdade.Matricula.parseFrom(buffer);
 
-        // Faz um marshalling da resposta "Success"
-        res = Faculdade.Resposta.newBuilder().setMensagem("Success").build();
-
-        // Envia para o cliente um array de bytes da resposta
-        outClient.write(res.toByteArray());
-
         // Chama a funcao de listar alunos matriculados de uma disciplina
         this.database.listarAlunosDaDisciplina(
                 matricula.getCodDisciplina(),
@@ -252,12 +246,6 @@ class ClientThread extends Thread {
 
         // Parser do buffer
         Faculdade.Matricula matricula = Faculdade.Matricula.parseFrom(buffer);
-
-        // Faz um marshalling da resposta "Success"
-        res = Faculdade.Resposta.newBuilder().setMensagem("Success").build();
-
-        // Envia para o cliente um array de bytes da resposta
-        outClient.write(res.toByteArray());
 
         // Chama a funcao de mostrar o boletim de um aluno
         this.database.boletimAluno(
