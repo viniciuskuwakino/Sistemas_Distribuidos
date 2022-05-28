@@ -1,22 +1,43 @@
 import grpc from "grpc";
 import protoLoader from "@grpc/proto-loader";
 import path from "path";
+import { dbInsertMatricula, dbUpdateNota, dbUpdateFaltas, dbListarAlunos } from "./dbController.js";
+
 
 function inserirMatricula(call, callback) {
-  console.log(call.request);
-  return callback(null, {mensagem: "Success"});
+  const operacao = dbInsertMatricula(call.request);
+  
+  operacao.then((res) => {
+    if (res == true) return callback(null, { mensagem: "Success" });
+    else return callback(null, { mensagem: "Fail" });
+  });
 }
 
 function atualizarNota(call, callback) {
-  console.log(call)
+  const operacao = dbUpdateNota(call.request);
+
+  operacao.then((res) => {
+    if (res == true) return callback(null, { mensagem: "Success" });
+    else return callback(null, { mensagem: "Fail" });
+  });
 }
 
 function atualizarFaltas(call, callback) {
-  console.log(call)
+  const operacao = dbUpdateFaltas(call.request);
+
+  operacao.then((res) => {
+    if (res == true) return callback(null, { mensagem: "Success" });
+    else return callback(null, { mensagem: "Fail" });
+  });
 }
 
 function listarAlunosDaDisciplina(call, callback) {
-  console.log(call)
+  const operacao = dbListarAlunos(call.request);
+
+  operacao.then((res) => {
+    console.log(res)
+    return callback(null, res)
+  });
 }
 
 function listarBoletimDoAluno(call, callback) {

@@ -20,15 +20,44 @@ def inserirMatricula(stub):
 
 
 def alterarNotas(stub):
-    pass
+    
+    # Preenche a estrutura da matricula, porém, enviando tambem o campo "nota";
+    matricula = faculdade_pb2.Matricula()
+    matricula.ra = setRa()
+    matricula.cod_disciplina = setCodDisciplina()
+    matricula.ano = setAno()
+    matricula.semestre = setSemestre()
+    matricula.nota = setNota()
+
+    resposta = stub.AtualizarNota(matricula)
+    print(f"Mensagem: {resposta.mensagem}")
 
 
 def alterarFaltas(stub):
-    pass
+
+    # Preenche a estrutura da matricula, porém, enviando tambem o campo "nota";
+    matricula = faculdade_pb2.Matricula()
+    matricula.ra = setRa()
+    matricula.cod_disciplina = setCodDisciplina()
+    matricula.ano = setAno()
+    matricula.semestre = setSemestre()
+    matricula.faltas = setFalta()
+
+    resposta = stub.AtualizarFaltas(matricula)
+    print(f"Mensagem: {resposta.mensagem}")
 
 
 def listarAlunosDaDisciplina(stub):
-    pass
+
+    # Preenche a estrutura da matricula, porém, enviando tambem o campo "nota";
+    matricula = faculdade_pb2.Matricula()
+    matricula.cod_disciplina = setCodDisciplina()
+    matricula.ano = setAno()
+    matricula.semestre = setSemestre()
+
+    resposta = stub.ListarAlunosDaDisciplina(matricula)
+    # print(f"Mensagem: {resposta.mensagem}")
+    print(resposta)
 
 
 def boletimAluno(stub):
