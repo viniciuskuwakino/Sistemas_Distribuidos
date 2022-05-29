@@ -57,7 +57,18 @@ def listarAlunosDaDisciplina(stub):
 
     resposta = stub.ListarAlunosDaDisciplina(matricula)
     # print(f"Mensagem: {resposta.mensagem}")
-    print(resposta)
+    qtdAlunos = len(resposta.alunos)
+
+    if qtdAlunos == 0:
+        print("Mensagem: Não há alunos!")
+    else:
+        print(f"Mensagem: {qtdAlunos} alunos encontrados")
+        for aluno in resposta.alunos:
+            print("------------------------")
+            print(f"RA: {aluno.ra}")
+            print(f"Nome: {aluno.nome}")
+            print(f"Periodo: {aluno.periodo}")
+        print("------------------------")
 
 
 def boletimAluno(stub):

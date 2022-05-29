@@ -35,8 +35,7 @@ function listarAlunosDaDisciplina(call, callback) {
   const operacao = dbListarAlunos(call.request);
 
   operacao.then((res) => {
-    console.log(res)
-    return callback(null, res)
+    return callback(null, { alunos: res });
   });
 }
 

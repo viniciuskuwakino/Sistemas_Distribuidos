@@ -30,17 +30,27 @@ export async function dbUpdateFaltas(matricula) {
 }
 
 export async function dbListarAlunos(matricula) {
+  const arrAlunos = [];
+
   const { codDisciplina, ano, semestre } = matricula;
   
   const statement = await knex("Aluno")
-    .select("ra", "nome", "periodo")
-    .where({ ra:
-      knex("Matricula")
-        .select("ra")
-        .where({cod_disciplina: codDisciplina, ano, semestre})
-    });
+    .join("Matricula", {"Aluno.ra": "Matricula.ra"})
+    .select("Aluno.ra", "Aluno.nome", "Aluno.periodo", "Aluno.cod_curso")
+    .where({cod_disciplina: codDisciplina, ano, semestre});
 
-  return statement;
+  statement.map((res) => {
+    const aluno = {
+      ra: res.ra, 
+      nome: res.nome, 
+      periodo: res.periodo,
+      cod_curso: res.cod_curso
+    }
+
+    arrAlunos.push(aluno);
+  });
+
+  return arrAlunos;
 }
 
 
