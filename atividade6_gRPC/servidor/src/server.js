@@ -1,15 +1,20 @@
-import grpc from "grpc";
-import protoLoader from "@grpc/proto-loader";
-import path from "path";
-import { dbInsertMatricula, dbUpdateNota, dbUpdateFaltas, dbListarAlunos } from "./dbController.js";
-
+import protoLoader from '@grpc/proto-loader';
+import grpc from 'grpc';
+import path from 'path';
+import {
+  dbBoletimAlunos,
+  dbInsertMatricula,
+  dbListarAlunos,
+  dbUpdateFaltas,
+  dbUpdateNota,
+} from './dbController.js';
 
 function inserirMatricula(call, callback) {
   const operacao = dbInsertMatricula(call.request);
-  
+
   operacao.then((res) => {
-    if (res == true) return callback(null, { mensagem: "Success" });
-    else return callback(null, { mensagem: "Fail" });
+    if (res == true) return callback(null, { mensagem: 'Success' });
+    else return callback(null, { mensagem: 'Fail' });
   });
 }
 
@@ -17,8 +22,8 @@ function atualizarNota(call, callback) {
   const operacao = dbUpdateNota(call.request);
 
   operacao.then((res) => {
-    if (res == true) return callback(null, { mensagem: "Success" });
-    else return callback(null, { mensagem: "Fail" });
+    if (res == true) return callback(null, { mensagem: 'Success' });
+    else return callback(null, { mensagem: 'Fail' });
   });
 }
 
@@ -26,8 +31,8 @@ function atualizarFaltas(call, callback) {
   const operacao = dbUpdateFaltas(call.request);
 
   operacao.then((res) => {
-    if (res == true) return callback(null, { mensagem: "Success" });
-    else return callback(null, { mensagem: "Fail" });
+    if (res == true) return callback(null, { mensagem: 'Success' });
+    else return callback(null, { mensagem: 'Fail' });
   });
 }
 
@@ -40,11 +45,17 @@ function listarAlunosDaDisciplina(call, callback) {
 }
 
 function listarBoletimDoAluno(call, callback) {
-  console.log(call)
+  const operacao = dbBoletimAlunos(call.request);
+  operacao.then((res) => {
+    return callback(null, {
+      disciplina: res[0],
+      matricula: res[1],
+    });
+  });
 }
-      
-const proto = protoLoader.loadSync(path.resolve("../faculdade.proto"))
-const FaculdadeProto = grpc.loadPackageDefinition(proto)
+
+const proto = protoLoader.loadSync(path.resolve('../faculdade.proto'));
+const FaculdadeProto = grpc.loadPackageDefinition(proto);
 const server = new grpc.Server();
 
 server.addService(FaculdadeProto.Faculdade.service, {
@@ -52,10 +63,9 @@ server.addService(FaculdadeProto.Faculdade.service, {
   atualizarNota,
   atualizarFaltas,
   listarAlunosDaDisciplina,
-  listarBoletimDoAluno
+  listarBoletimDoAluno,
 });
 
-
-server.bind("localhost:7000", grpc.ServerCredentials.createInsecure());
-console.log("Iniciando servidor!");
+server.bind('localhost:7000', grpc.ServerCredentials.createInsecure());
+console.log('Iniciando servidor!');
 server.start();

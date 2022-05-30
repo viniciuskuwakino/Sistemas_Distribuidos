@@ -1,4 +1,5 @@
 import grpc
+
 import faculdade_pb2
 import faculdade_pb2_grpc
 from functions import *
@@ -72,8 +73,28 @@ def listarAlunosDaDisciplina(stub):
 
 
 def boletimAluno(stub):
-    pass
+    matricula = faculdade_pb2.Matricula()
+    matricula.ra = setRa()
+    matricula.ano = setAno()
+    matricula.semestre = setSemestre()
 
+    resposta = stub.ListarBoletimDoAluno(matricula)
+
+    if len(resposta.disciplina): 
+        print("------------BOLETIM------------")
+        print(f"RA: {resposta.matricula[0].ra}")
+        print(f"Ano: {resposta.matricula[0].ano}")
+        print(f"Semestre: {resposta.matricula[0].semestre}")
+        print("----------DISCIPlINAS----------")
+        for index, _ in enumerate(resposta.disciplina):
+            print(f"Codigo: {resposta.disciplina[index].codigo}")
+            print(f"Nome: {resposta.disciplina[index].nome}")
+            print(f"Professor: {resposta.disciplina[index].professor}")
+            print("Nota: %.1f" % resposta.matricula[index].nota)
+            print(f"Faltas: {resposta.matricula[index].faltas}")
+            print("-------------------------------")
+        print("------------BOLETIM------------")
+    else: print(f"Nenhuma matricula encontrada com RA:{matricula.ra}, ANO: {matricula.ano} e SEMESTRE:{matricula.semestre}")
 
 def main():
 
