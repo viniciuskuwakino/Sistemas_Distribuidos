@@ -67,8 +67,6 @@ export async function dbBoletimAlunos(matricula) {
     })
     .where({ ra, ano, semestre });
 
-  console.log(statement);
-
   statement.forEach((statement) => {
     arrMatricula.push({
       ra: statement.ra,

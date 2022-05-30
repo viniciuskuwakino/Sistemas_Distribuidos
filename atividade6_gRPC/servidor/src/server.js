@@ -9,48 +9,38 @@ import {
   dbUpdateNota,
 } from './dbController.js';
 
-function inserirMatricula(call, callback) {
-  const operacao = dbInsertMatricula(call.request);
+async function inserirMatricula(call, callback) {
+  const operacao = await dbInsertMatricula(call.request);
 
-  operacao.then((res) => {
-    if (res == true) return callback(null, { mensagem: 'Success' });
-    else return callback(null, { mensagem: 'Fail' });
-  });
+  if (operacao == true) return callback(null, { mensagem: 'Success' });
+  else return callback(null, { mensagem: 'Fail' });
 }
 
-function atualizarNota(call, callback) {
-  const operacao = dbUpdateNota(call.request);
+async function atualizarNota(call, callback) {
+  const operacao = await dbUpdateNota(call.request);
 
-  operacao.then((res) => {
-    if (res == true) return callback(null, { mensagem: 'Success' });
-    else return callback(null, { mensagem: 'Fail' });
-  });
+  if (operacao == true) return callback(null, { mensagem: 'Success' });
+  else return callback(null, { mensagem: 'Fail' });
 }
 
-function atualizarFaltas(call, callback) {
-  const operacao = dbUpdateFaltas(call.request);
+async function atualizarFaltas(call, callback) {
+  const operacao = await dbUpdateFaltas(call.request);
 
-  operacao.then((res) => {
-    if (res == true) return callback(null, { mensagem: 'Success' });
-    else return callback(null, { mensagem: 'Fail' });
-  });
+  if (operacao == true) return callback(null, { mensagem: 'Success' });
+  else return callback(null, { mensagem: 'Fail' });
 }
 
-function listarAlunosDaDisciplina(call, callback) {
-  const operacao = dbListarAlunos(call.request);
+async function listarAlunosDaDisciplina(call, callback) {
+  const operacao = await dbListarAlunos(call.request);
 
-  operacao.then((res) => {
-    return callback(null, { alunos: res });
-  });
+  return callback(null, { alunos: operacao });
 }
 
-function listarBoletimDoAluno(call, callback) {
-  const operacao = dbBoletimAlunos(call.request);
-  operacao.then((res) => {
-    return callback(null, {
-      disciplina: res[0],
-      matricula: res[1],
-    });
+async function listarBoletimDoAluno(call, callback) {
+  const operacao = await dbBoletimAlunos(call.request);
+  return callback(null, {
+    disciplina: operacao[0],
+    matricula: operacao[1],
   });
 }
 
