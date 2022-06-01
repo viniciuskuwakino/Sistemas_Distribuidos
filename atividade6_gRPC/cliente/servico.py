@@ -12,7 +12,7 @@
         Vinicius Kuwakino
 
     - Data de criação: 27/05/2022
-    - Data de atualização: 31/05/2022
+    - Data de atualização: 01/06/2022
 """
 
 import grpc

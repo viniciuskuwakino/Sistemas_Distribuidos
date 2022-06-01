@@ -6,7 +6,8 @@ import faculdade_pb2 as faculdade__pb2
 
 
 class FaculdadeStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Definindo o servico Faculdade
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -42,34 +43,40 @@ class FaculdadeStub(object):
 
 
 class FaculdadeServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Definindo o servico Faculdade
+    """
 
     def InserirMatricula(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Envia dados da matricula e retorna uma resposta
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def AtualizarNota(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Envia dados da matricula e retorna uma resposta
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def AtualizarFaltas(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Envia dados da matricula e retorna uma resposta
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListarAlunosDaDisciplina(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Envia dados da matricula e retorna um array de alunos
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListarBoletimDoAluno(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Envia dados da matricula e retorna um array de disciplina e um array de matricula
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -110,7 +117,8 @@ def add_FaculdadeServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Faculdade(object):
-    """Missing associated documentation comment in .proto file."""
+    """Definindo o servico Faculdade
+    """
 
     @staticmethod
     def InserirMatricula(request,
