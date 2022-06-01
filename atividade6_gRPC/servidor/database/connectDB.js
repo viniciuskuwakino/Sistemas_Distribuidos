@@ -1,3 +1,8 @@
+/**
+ * Configuracao do Knex, passando o parametro "client" que determina qual banco de dados será utlizado,
+ * e em seguida 
+ */
+
 import knex from "knex"
 
 const connectionDB = knex({

@@ -1,35 +1,46 @@
 syntax = "proto3";
 
+// Definindo o servico Faculdade
 service Faculdade {
+  // Envia dados da matricula e retorna uma resposta
   rpc InserirMatricula (Matricula) returns (Res) {}
+
+  // Envia dados da matricula e retorna uma resposta
   rpc AtualizarNota (Matricula) returns (Res) {}
+  
+  // Envia dados da matricula e retorna uma resposta
   rpc AtualizarFaltas (Matricula) returns (Res) {}
+
+  // Envia dados da matricula e retorna um array de alunos
   rpc ListarAlunosDaDisciplina (Matricula) returns (ListaAlunos) {}
+
+  // Envia dados da matricula e retorna um array de disciplina e um array de matricula
   rpc ListarBoletimDoAluno (Matricula) returns (Boletim) {}
 }
 
+// Resposta contendo uma mensagem
 message Res {
   string mensagem = 1;
 }
 
-message Tamanho {
-  string quantidade = 1;
-}
-
+// Array de alunos
 message ListaAlunos {
   repeated Aluno alunos = 1;
 }
 
+// Array de disciplinas e matricula
 message Boletim {
   repeated Disciplina disciplina = 1;
   repeated Matricula matricula = 2;
 }
 
+// Estrutura da tabela Curso
 message Curso {
   int32 codigo = 1;
   string nome = 2;
 }
 
+// Estrutura da tabela Disciplina
 message Disciplina {
   string codigo = 1;
   string nome = 2;
@@ -37,6 +48,7 @@ message Disciplina {
   int32 cod_curso = 4;
 }
 
+// Estrutura da tabela Aluno
 message Aluno {
   int32 ra = 1;
   string nome = 2;
@@ -44,6 +56,7 @@ message Aluno {
   int32 cod_curso = 4;
 }
 
+// Estrutura da tabela Matricula
 message Matricula {
   int32 ra = 1;
   string cod_disciplina = 2;
