@@ -1,5 +1,7 @@
-import pika
 import json
+from time import sleep
+
+import pika
 
 # Estabelecendo uma conexao com o servidor
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
@@ -18,6 +20,9 @@ with open('tweets.json') as file:
 
         # Converte o dicionario para string
         tweet_str = json.dumps(tweet)
+        print(tweet_str)
+        print("TWWWEEEET")
+        sleep(5)
 
         # Utilizando a troca padrao declarando uma string vazia em "exchange",
         # definindo o nome da fila em "routing_key",
