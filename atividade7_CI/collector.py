@@ -9,7 +9,7 @@
         Vinicius Kuwakino
 
     - Data de criação: 04/06/2022
-    - Data de atualização: 08/06/2022
+    - Data de atualização: 09/06/2022
 """
     
 
@@ -35,9 +35,8 @@ with open('tweets.json') as file:
 
     # Converte o dicionario para string
     tweet_str = json.dumps(tweet)
-    print(tweet_str)
-    print("TWWWEEEET")
-    sleep(5)
+    print(" [x] Enviando Tweet!")
+    sleep(1)
 
     # Utilizando a troca padrao declarando uma string vazia em "exchange",
     # definindo o nome da fila em "routing_key",

@@ -8,7 +8,7 @@
         Vinicius Kuwakino
 
     - Data de criação: 04/06/2022
-    - Data de atualização: 08/06/2022
+    - Data de atualização: 09/06/2022
 """
 
 
@@ -17,14 +17,21 @@ import pika
 
 
 # Sobrescrevendo a funcao de callback
-def callback(ch, method, properties, body):    
+def callback(ch, method, properties, body):
+  
+  print(' [*] Tweet recebido!')
+  
+  # Faz um parser do arquivo e converte num dicionario
   tweet = json.loads(body.decode())
+  
+  print(' [x] Enviando tweet para fila!')
   for hashtag in tweet['entities']['hashtags']:
-    print(hashtag['text'].lower())
     if hashtag['text'].lower() == 'onepiece':
-      ch.basic_publish(exchange='', routing_key='onepiece', body=body)
+      ch.basic_publish(exchange='onepiece', routing_key='', body=body)
+      ch.basic_publish(exchange='ambos', routing_key='', body=body)
     if hashtag['text'].lower() == 'bleach':
-      ch.basic_publish(exchange='', routing_key='bleach', body=body)
+      ch.basic_publish(exchange='bleach', routing_key='', body=body)
+      ch.basic_publish(exchange='ambos', routing_key='', body=body)
 
 
 def run():
@@ -34,9 +41,12 @@ def run():
 
   # Criando uma fila de mensagens
   channel.queue_declare(queue='tweets')
-  channel.queue_declare(queue='onepiece')
-  channel.queue_declare(queue='bleach')
-  
+
+  # Declarando o nome do exchange e o tipo
+  channel.exchange_declare(exchange='onepiece', exchange_type='fanout')
+  channel.exchange_declare(exchange='bleach', exchange_type='fanout')
+  channel.exchange_declare(exchange='ambos', exchange_type='fanout')
+
   # Dizemos ao RabbitMQ que a funcao callback sobrescrita recebera as mensagens da fila "tweets"
   channel.basic_consume(queue='tweets', auto_ack=True, on_message_callback=callback)
 
