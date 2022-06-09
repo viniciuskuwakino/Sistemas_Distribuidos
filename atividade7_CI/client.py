@@ -79,7 +79,7 @@ def run():
   print("3 - Ambos")
 
   # Recebe a opcao que o cliente selecionou
-  option = input()
+  option = input("Opcao: ")
 
   # Dado a opcao selecionada, invoca as funcoes para consumir os tweets
   if option == '1':
